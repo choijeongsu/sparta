@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;900&family=Noto+Serif+KR:wght@900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .outline {
+            margin: 0 auto;
+            margin-top: 30px;
+            padding: 30px;
+            width: 520px;
+            border-style: groove;
+
+        }
+
+        .border-radius {
+            border-radius: 5px;
+
+        }
+
+        .title {
+            color: rgb(20, 3, 70);
+            font-weight: bolder;
+            font-size: 35px;
+            
+        }
+
+        .price {
+            color: rgb(46, 45, 46);
+            font-size: 11px;
+            margin-left: 5px;
+        }
+
+        .comment {
+            font-size:12px;
+            margin-bottom: 1px;
+            font-style: italic;
+        }
+        .box {
+            font-size: 12px;
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+     
+
+        .center {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 40px;
+        }
+    </style>
+
+    <script>
+        function order() {
+            alert('주문이 완료되었습니다');
+        }
+    </script>
+</head>
+
+
+
+<body>
+    <div class="outline">
+        <div>
+            <img class="border-radius"
+                src="https://search.pstatic.net/common/?src=http%3A%2F%2Fpost.phinf.naver.net%2FMjAxNzAzMjdfMTUy%2FMDAxNDkwNjA5NTc3NDIy.Jv68lSOaAVz6oIsrXusDHoX7eAhMm4TytesN8phDAf0g.9D-6IBDK1aAmRvKrQZceKiqD8qxaFRS1QwB005SaWmEg.JPEG%2FItSA4yJwMNlBui1n44lPGh1YdjqQ.jpg&type=b400"
+                width="450" height="260">
+        </div>
+
+        <div>
+            <span class="title">2020 G4 REXTON</span>
+            <span class="price"> 출시가 3,361~4,551만원 </span>
+            <p class="comment">
+                더욱 완벽해진 4륜 구동 시스템 
+            </p>
+            <p class="comment"> 
+                4륜의 명가 쌍용자동차만의 4-Tronic을 경험해보십시오.
+            </p>
+        </div>
+
+
+        <div class="box">
+            <p>
+                주문자성함: <input type="text" />
+            </p>
+            <p>
+                색상: <input type="text">
+            </p>
+            <label for="cnt">수량:</label>
+            <select>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+            <p>
+                주소: <input type="text" />
+            </p>
+
+            <p>
+                전화번호: <input type="text" />
+            </p>
+        </div>
+    </div>
+
+    <div class="center">
+        <button onclick="order()" class="btn btn-outline-dark">주문하기</button>
+    </div>
+
+
+</body>
+
+</html>
