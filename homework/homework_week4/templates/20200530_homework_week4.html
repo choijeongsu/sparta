@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;900&family=Noto+Serif+KR:wght@900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='homework.css') }}" />
+
+    <script>
+        $.ajax({
+            type: "GET",
+            url: "https://api.manana.kr/exchange/rate.json",
+            data: {},
+            success: function (response) {
+                for (let i = 0; i < response.length; i++) {
+                    if (response[i]['name'] == 'USDKRW=X') {
+                        $('#exchange').text(response[i]['rate']);
+                        return;
+                    }
+                }
+
+            }
+        })
+
+
+        $(document).ready(function () {
+            $('#names-q1').html('');
+            listing();
+        });
+
+
+        function order() {
+            let name = $('#order_name').val();
+            let color = $('#order_color').val();
+            let number = $('#order_number').val();
+            let address = $('#order_address').val();
+            let tel = $('#order_tel').val();
+            if (name == '') {
+                alert("이름을 입력하세요");
+                return
+            } else if (color == '') {
+                alert('색상을 입력하세요')
+                return
+            } else if (address == '') {
+                alert('주소를 입력하세요')
+                return
+            } else if (tel == '') {
+                alert('핸드폰 번호를 입력하세요')
+                return
+            } else if (tel.length !== 10 && tel.length !== 11) {
+                alert('핸드폰 번호를 올바른 형식으로 입력하세요')
+                return
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/orders",
+                data: { name_give: name, color_give: color, number_give: number, address_give: address, tel_give: tel },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert(response['msg']);
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+        function listing() {
+            $.ajax({
+                type: "GET",
+                url: "/orders",
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        // alert(response['reviews']);
+                        // 2. 성공했을 때 리뷰를 올바르게 화면에 나타내기
+                        let orders = response['orders'];
+                        for (let i = 0; i < orders.length; i++) {
+                            make_card(orders[i]['name'], orders[i]['color'], orders[i]['number'], orders[i]['address'], orders[i]['tel']);
+                        }
+                    } else {
+                        alert('리뷰를 받아오지 못했습니다');
+                    }
+                }
+            });
+        }
+
+        function make_card(name, color, number, address, tel) {
+            let temp_html = `<tr>
+                                <td>${name}</td>
+                                <td>${color}</td>
+                                <td>${number}</td>
+                                <td>${address}</td>
+                                <td>${tel} </td>
+                              </tr>`;
+            $('#names-q1').append(temp_html);
+
+        }
+
+
+
+    </script>
+
+</head>
+
+
+
+<body>
+    <div class="outline">
+        <span class="title">2020 G4 REXTON</span>
+        <span class="price"> 출시가 3,361~4,551만원 </span>
+        <div>
+            <img class="img"
+                src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile10.uf.tistory.com%2Fimage%2F99D1D6465B774D57155FB1"
+                width="800" height="350">
+        </div>
+
+        <div>
+            <p class="comment">
+                더욱 완벽해진 4륜 구동 시스템
+            </p>
+            <p class="comment">
+                4륜의 명가 쌍용자동차만의 4-Tronic을 경험해보십시오.
+            </p>
+        </div>
+        <div class="change">달러-원 환율: <span id="exchange"></span> </div>
+
+        <div class="box">
+            <p>
+                주문자성함 <input type="text" id="order_name" class="form-control" />
+
+            </p>
+            <p>
+                색상 <input type="text" id="order_color" class="form-control" />
+            </p>
+            <label for="cnt">수량</label>
+            <select id="order_number" class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+
+            <p>
+                주소 <input type="text" id="order_address" class="form-control" />
+            </p>
+
+            <p>
+                핸드폰번호 <input type="text" id="order_tel" class="form-control" />
+                <span class="price">'-'를 제외하고 입력하세요.</span>
+            </p>
+
+        </div>
+
+
+        <div class="center">
+            <button onclick="order()" class="btn btn-outline-dark">주문하기</button>
+        </div>
+
+    </div>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <td>이름</td>
+                <td>색상</td>
+                <td>수량</td>
+                <td>주소</td>
+                <td>번호</td>
+            </tr>
+        </thead>
+        <tbody id="names-q1">
+        </tbody>
+    </table>
+
+
+
+</body>
+
+</html>
