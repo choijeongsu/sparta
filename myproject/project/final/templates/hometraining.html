@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="hometraning.css">
+    <script src="https://apis.google.com/js/api.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Fugaz+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',filename='hometraning.css') }}" />
+
+    <script>
+
+        $(document).ready(function () {
+            // index.html 로드가 완료되면 자동으로 show_star() 함수를 호출합니다.
+            show_star();
+        });
+
+        function openclose() {
+            if ($('#post-box').css('display') == 'block') {
+                $('#post-box').hide();
+            } else {
+                $('#post-box').show();
+            }
+        }
+
+
+        let like = $('#like_star').val();
+
+        function show_star() {
+            $.ajax({
+                type: 'GET',
+                url: '/api/list',
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        let likes = response['like_list'];
+                        for (let i = 0; i < likes.length; i++) {
+                            $('#' + likes[i]['name']).text(likes[i]['like']);
+                        }
+
+                    }
+                }
+            });
+        }
+
+        function click_like(_id) {
+            alert(_id);
+            $.ajax({
+                type: 'POST',
+                url: '/api/like',
+                data: { like_give: _id },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        show_star();
+                    }
+                }
+            });
+        }
+    </script>
+
+</head>
+
+
+<body>
+
+    <div class="bannerText">
+        <h2 class="middle">Home training finder</h2>
+    </div>
+
+    <div class="sqrs">
+        <div class="sqr"
+            style="--img: url(https://www.sportsdirect.com/images/marketing/22425-SDI-EvoRide-Digital-Assets-Thumbnail-Ladies-Mobile-500x356px.jpg);">
+        </div>
+        <div class="sqr"
+            style="--img: url(https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1049&q=80);">
+        </div>
+
+        <div class="sqr"
+            style="--img: url(https://images.unsplash.com/photo-1434608519344-49d77a699e1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60)">
+        </div>
+
+        <div class="sqr"
+            style="--img: url(https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60)">
+        </div>
+
+    </div>
+
+
+    <div id="btn-posting-box" onclick="openclose()" class="button-1">
+        <div class="eff-1"></div>
+        <a href="#"> 시작!!!!🏋️‍♂️</a>
+    </div>
+
+
+    </div>
+
+
+    <div class="sqr3" id="post-box" style="display:none">
+        <div class="card">
+            <iframe width="522" height="298" src="https://www.youtube.com/embed/lKwZ2DU4P-A" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            <div class="card-body">
+                <a href="http://naver.com" class="card-title">하루 15분! 전신 칼로리 불태우는 다이어트 운동 15 MIN FULL BODY WORKOUT</a>
+                <p class="card-text">우리 몸을 흔히들 자동차에 비유하곤 합니다. 자동차는 출발 전 예열 과정을 거치고 주행을 다 하고난 후에는 열을 식혀주어야 합니다. 우리 몸도 이와
+                    마찬가지로 운동을 하기 전 워밍업 동작으로 몸의 근육과 관절을 풀어준 후 운동을 다 하고 난 후에는 쿨다운과 스트레칭 동작으로 사용한 근육과 관절들을 자연스럽게 풀어주어야 합니다.
+                    사실 이 워밍업, 스트레칭, 쿨다운은 바쁜 일상 속에서 챙기기가 어렵고 본 운동에 비해 그리 상대적으로 중요도가 떨어진다고 생각될지도 모르겠지만 건강하게 장기적으로 운동하기
+                    위해서는 이 과정들은 감히 필수라고도 할 수 있습니다.(근육, 관절의 건강 측면뿐만 아니라 운동효율 측면에서도 워밍업/스트레칭은 중요합니다. 더 높은 운동효율을 얻기 위해서는
+                    해주시는것이 좋습니다!) 그래서 오늘은 이 모든 과정을 15분이라는 영상에 한번에 담아 전신 칼로리를 소모하는 유산소운동 영상을 만들어 보았습니다. 영상에서 나오는 동작들에 대한
+                    순서와 대략적인 설명은 다음과 같습니다.</p>
+            </div>
+            <footer class="card-footer">
+                <a href="#" id="like_star" onclick="click_like('cnt_like1')">
+                    like👍<span id="cnt_like1">0</span>
+                    <span class="icon">
+                        <i class="fas fa-tumbs-up"></i>
+                    </span>
+                </a>
+            </footer>
+
+        </div>
+
+
+        <div class="card">
+            <iframe width="522" height="298" src="https://www.youtube.com/embed/6_LYz_XxD-g" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            <div class="card-body">
+                <a href="https://www.youtube.com/watch?v=6_LYz_XxD-g" class="card-title">[EN/CH]눈뜨스:아침에 눈뜨자마자 따라하는 스트레칭
+                    (First Thing in the Morning Stretching, Morning Stretching)ㅣ다노티비</a>
+                <p class="card-text">녕하세요, 다노언니 제시예요
+
+                    다노 레전드 스트레칭 두번째 프로젝트!
+                    아침에 눈 뜨자마자 따라할 수 있는 스트레칭을 준비했어요 :)
+                    a.k.a 눈뜨스!
+
+                    날씨가 추워지면서 아침마다 일어나기 싫고,
+                    이불 속에서 비비적거리다가 부랴부랴 출근하고,
+                    딱 게을러지기 쉬운 요즘!
+                    내일 아침부터 눈 뜨자마자 스트레칭 따라하며 상쾌한 아침습관을 만들어보아요♥ </p>
+            </div>
+            <footer class="card-footer">
+                <a href="#" id="like_star" onclick="click_like('cnt_like2')">
+                    like👍<span id="cnt_like2">0</span>
+                    <span class="icon">
+                        <i class="fas fa-tumbs-up"></i>
+                    </span>
+                </a>
+            </footer>
+
+        </div>
+
+        <div class="card">
+            <iframe width="522" height="298" src="https://www.youtube.com/embed/f5f9Vn2ICso" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            <div class="card-body">
+                <a href="http://naver.com" class="card-title">[20분유산소-중급-] Full Body Cardio Workout</a>
+                <p class="card-text">...</p>
+            </div>
+            <footer class="card-footer">
+                <a href="#" id="like_star" onclick="click_like('cnt_like3')">
+                    like👍<span id="cnt_like3">0</span>
+                    <span class="icon">
+                        <i class="fas fa-tumbs-up"></i>
+                    </span>
+                </a>
+            </footer>
+
+        </div>
+
+        <div class="card">
+            <iframe width="522" height="298" src="https://www.youtube.com/embed/MG69sFM1UIw" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            <div class="card-body">
+                <a href="https://www.youtube.com/watch?v=MG69sFM1UIw" class="card-title">Miley Cyrus Workout: Sexy
+                    Legs</a>
+                <p class="card-text">기On today's episode of XHIT, fitness trainer Rebecca-Louise shows you how to get
+                    toned legs like the hottest person in the world (according to Maxim magazine), Miley Cyrus! That's
+                    right, Maxim just named Miley their #1 hottest person in the world and we are going to show you some
+                    exercises to get you started on your climb to the top! Follow along and let us know what you
+                    thought.</p>
+            </div>
+            <footer class="card-footer">
+                <a href="#" id="like_star" onclick="click_like('cnt_like4')">
+                    like👍<span id="cnt_like4">0</span>
+                    <span class="icon">
+                        <i class="fas fa-tumbs-up"></i>
+                    </span>
+                </a>
+            </footer>
+
+        </div>
+
+
+        <div class="card">
+            <iframe width="522" height="298" src="https://www.youtube.com/embed/ml6cT4AZdqI" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            <div class="card-body">
+                <a href="https://www.youtube.com/watch?v=ml6cT4AZdqI" class="card-title">30-Minute HIIT Cardio Workout with Warm Up - No Equipment at Home | SELF</a>
+                <p class="card-text">In this high intensity cardio bodyweight workout from trainer Lita Lewis, you’ll spike your heart rate with high-knees, fast feet, and star jumps; plus work your core and lower body with jumping lunges and planks - at home! No equipment needed!</p>
+            </div>
+            <footer class="card-footer">
+                <a href="#" id="like_star" onclick="click_like('cnt_like5')">
+                    like👍<span id="cnt_like5">0</span>
+                    <span class="icon">
+                        <i class="fas fa-tumbs-up"></i>
+                    </span>
+                </a>
+            </footer>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+</html>
